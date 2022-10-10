@@ -13,19 +13,17 @@ import java.util.List;
 public class SurveyResource {
 
     private SurveyService surveyService;
-            //= new SurveyService(); Spring handles instances so we dont need to create a new object everytime
+    //= new SurveyService(); Spring handles instances so we dont need to create a new object everytime
 
     public SurveyResource(SurveyService surveyService) {
         this.surveyService = surveyService;
     } // Giving he desired object as constructor parameter is enough to get the object in Spring
 
     @RequestMapping("/surveys")
-    public List<Survey> retrieveAllSurveys(){
-        return surveyService.retrieveAllSurveys();
-    }
+    public List<Survey> retrieveAllSurveys() { return surveyService.retrieveAllSurveys(); }
 
     @RequestMapping("/surveys/{surveyID}")
-    public Survey retrieveSurvey(@PathVariable String surveyID){
+    public Survey retrieveSurvey(@PathVariable String surveyID) {
         Survey survey = surveyService.retrieveSurvey(surveyID);
 
         if (survey != null) return survey;
@@ -33,7 +31,7 @@ public class SurveyResource {
     }
 
     @RequestMapping("/surveys/{surveyID}/questions")
-    public List<Question> retrieveAllQuestions(@PathVariable String surveyID){
+    public List<Question> retrieveAllQuestions(@PathVariable String surveyID) {
         List<Question> questions = surveyService.retrieveAllQuestions(surveyID);
 
         if (questions != null) return questions;
@@ -41,8 +39,8 @@ public class SurveyResource {
     }
 
     @RequestMapping("/surveys/{surveyID}/questions/{questionID}")
-    public Question retrieveQuestion(@PathVariable String surveyID,@PathVariable String questionID){
-        Question question = surveyService.retrieveQuestion(surveyID,questionID);
+    public Question retrieveQuestion(@PathVariable String surveyID, @PathVariable String questionID) {
+        Question question = surveyService.retrieveQuestion(surveyID, questionID);
 
         if (question != null) return question;
         // 404 not found error to show something instead of blank page on null returns
@@ -56,7 +54,7 @@ public class SurveyResource {
     public ResponseEntity<Object> addNewQuestion(
             @PathVariable String surveyID, //To get surveyID from GET method in url
             @RequestBody Question question //To capture the request body as POST
-    ){
+    ) {
         String questionID = surveyService.addNewQuestion(surveyID, question);
 
 
@@ -80,8 +78,8 @@ public class SurveyResource {
     public ResponseEntity<Object> deleteQuestion(
             @PathVariable String surveyID,
             @PathVariable String questionID
-    ){
-        surveyService.deleteQuestion(surveyID,questionID);
+    ) {
+        surveyService.deleteQuestion(surveyID, questionID);
         return ResponseEntity.noContent().build();
     }
 
@@ -91,8 +89,8 @@ public class SurveyResource {
             @PathVariable String surveyID,
             @PathVariable String questionID,
             @RequestBody Question question
-    ){
-        surveyService.updateQuestion(surveyID,questionID,question);
+    ) {
+        surveyService.updateQuestion(surveyID, questionID, question);
         return ResponseEntity.noContent().build();
     }
 

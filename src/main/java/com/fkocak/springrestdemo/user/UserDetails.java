@@ -1,6 +1,5 @@
 package com.fkocak.springrestdemo.user;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
